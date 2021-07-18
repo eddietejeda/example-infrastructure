@@ -1,0 +1,6 @@
+.terraform/
+secrets/*
+scratchpad/*
+.terraform.lock.hcl
+.DS_Store
+terraform.tfvars
