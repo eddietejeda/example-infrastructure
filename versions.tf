@@ -4,6 +4,10 @@ terraform {
   required_providers {
     aws      = ">= 2.48"
     template = ">= 2.0"
+    github = {
+      source  = "integrations/github"
+      version = "~> 4.0"
+    }
   }
 
   backend "remote" {
@@ -13,12 +17,12 @@ terraform {
       name = "development"
     }
   }
-
-  # backend "local" {
-  #   path = "terraform.tfstate"
-  # }
 }
 
 provider "aws" {
-  region = "${local.region}"
+  region       = "${local.region}"
+}
+
+provider "github" {
+  token        = "${var.github_token}"
 }
