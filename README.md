@@ -1,4 +1,3 @@
-
 ## Naming convention
 
 If we expect there to only be one instance of a resource type, just call it by 
@@ -11,5 +10,3 @@ But, if this is a resource type that will have multiple instances, for example:
 
 - aws_route53_record.www
 - aws_route53_record.cert_validation
-
-Here 
