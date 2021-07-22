@@ -16,30 +16,32 @@ variable "github_webhook_token" {}
 
 variable "git_organization" {}
 
+variable "github_repository" {}
+
+variable "github_url" {}
+
 # Dockerhub
-variable "dockerhub_username" { }
+variable "dockerhub_username" {}
 
-variable "dockerhub_access_token" { }
+variable "dockerhub_access_token" {}
 
 
+# Code build
+variable "codebuild_buildspec_path" {}
 
-variable "github_repository" { }
 
-variable "github_url" { }
+# SSH
+variable "ssh_key_name" {}
 
 variable "git_branch" {
   default = "main"
 }
 
-
-
 variable "codebuild_timeout" {
   default = 5
 }
 
-variable "codebuild_buildspec_path" {}
-
-
+# AWS
 variable "region" {
   description = "The default region"
 }
@@ -60,10 +62,6 @@ variable "codebuild_image" {
   default = "linkbird:latest"
 }
 
-
-
-
-
 variable "bucket_name" {
   description = "The name of the private bucket"
 }
@@ -71,5 +69,3 @@ variable "bucket_name" {
 variable "private_bucket_name" {
   description = "The name of the private bucket"
 }
-
-variable "ssh_key_name" { }
