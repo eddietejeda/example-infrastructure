@@ -35,8 +35,8 @@ resource "aws_codepipeline" "deploy_pipeline" {
 
       configuration = {
         ConnectionArn      = aws_codestarconnections_connection.github_connection.arn
-        FullRepositoryId   = "${var.github_url}"
-        BranchName         = "main"
+        FullRepositoryId   = "${var.github_repository}"
+        BranchName         = "master"
       }
 
     }
