@@ -11,8 +11,6 @@ resource "aws_ssm_parameter" "github_webhook_secret" {
   tags        = local.tags
 }
 
-
-
 resource "aws_ssm_parameter" "dockerhub_username" {
   name        = "/${var.name}/dockerhub/username"
   description = "Used to auth password"
@@ -21,7 +19,6 @@ resource "aws_ssm_parameter" "dockerhub_username" {
   tags        = local.tags
 }
 
-
 resource "aws_ssm_parameter" "dockerhub_access_token" {
   name        = "/${var.name}/dockerhub/access_token"
   description = "Used by the CI/CD pipeline to create/destroy Github webhooks"
@@ -29,18 +26,6 @@ resource "aws_ssm_parameter" "dockerhub_access_token" {
   value       = "${var.dockerhub_access_token}"
   tags        = local.tags
 }
-
-
-
-resource "aws_ssm_parameter" "dockerhub_access_token" {
-  name        = "/${var.name}/dockerhub/access_token"
-  description = "Used by the CI/CD pipeline to create/destroy Github webhooks"
-  type        = "SecureString"
-  value       = "${var.dockerhub_access_token}"
-  tags        = local.tags
-}
-
-
 
 resource "aws_ssm_parameter" "app_encryption_key" {
   name        = "/${var.name}/app/encryption_key"
@@ -51,20 +36,6 @@ resource "aws_ssm_parameter" "app_encryption_key" {
 }
 
 
-
-
-
-
-# 
-
-# =
-# 
-
-# =
-# =
-
-
-# 
 resource "aws_ssm_parameter" "new_relic_license_key" {
   name        = "/${var.name}/new_relic/license_key"
   description = "xxxx"
@@ -72,8 +43,6 @@ resource "aws_ssm_parameter" "new_relic_license_key" {
   value       = "${var.new_relic_license_key}"
   tags        = local.tags
 }
-
-
 
 resource "aws_ssm_parameter" "twitter_access_token" {
   name        = "/${var.name}/twitter/access_token"
@@ -83,8 +52,6 @@ resource "aws_ssm_parameter" "twitter_access_token" {
   tags        = local.tags
 }
 
-
-
 resource "aws_ssm_parameter" "twitter_access_token_secret" {
   name        = "/${var.name}/twitter/access_token_secret"
   description = "xxxx"
@@ -92,10 +59,6 @@ resource "aws_ssm_parameter" "twitter_access_token_secret" {
   value       = "${var.twitter_access_token_secret}"
   tags        = local.tags
 }
-
-
-
-
 
 resource "aws_ssm_parameter" "twitter_consumer_key" {
   name        = "/${var.name}/twitter/consumer_key"
@@ -105,8 +68,6 @@ resource "aws_ssm_parameter" "twitter_consumer_key" {
   tags        = local.tags
 }
 
-
-
 resource "aws_ssm_parameter" "twitter_consumer_secret" {
   name        = "/${var.name}/dockerhub/access_token"
   description = "xxxx"
@@ -114,7 +75,6 @@ resource "aws_ssm_parameter" "twitter_consumer_secret" {
   value       = "${var.twitter_consumer_secret}"
   tags        = local.tags
 }
-
 
 resource "aws_ssm_parameter" "twitter_app_access_token" {
   name        = "/${var.name}/twitter_app/token_secret"
@@ -124,8 +84,6 @@ resource "aws_ssm_parameter" "twitter_app_access_token" {
   tags        = local.tags
 }
 
-
-
 resource "aws_ssm_parameter" "twitter_app_consumer_key" {
   name        = "/${var.name}/twitter_app/consumer_key"
   description = "xxxx"
@@ -133,10 +91,6 @@ resource "aws_ssm_parameter" "twitter_app_consumer_key" {
   value       = "${var.twitter_app_consumer_key}"
   tags        = local.tags
 }
-
-
-
-
 
 resource "aws_ssm_parameter" "twitter_app_consumer_secret" {
   name        = "/${var.name}/twitter_app/consumer_secret"
@@ -146,8 +100,6 @@ resource "aws_ssm_parameter" "twitter_app_consumer_secret" {
   tags        = local.tags
 }
 
-
-
 resource "aws_ssm_parameter" "stripe_price_key" {
   name        = "/${var.name}/stripe/price_key"
   description = "xxxx"
@@ -155,8 +107,6 @@ resource "aws_ssm_parameter" "stripe_price_key" {
   value       = "${var.stripe_price_key}"
   tags        = local.tags
 }
-
-
 
 resource "aws_ssm_parameter" "stripe_product_key" {
   name        = "/${var.name}/stripe/product_key"
@@ -175,8 +125,6 @@ resource "aws_ssm_parameter" "stripe_publishable_key" {
   value       = "${var.stripe_publishable_key}"
   tags        = local.tags
 }
-
-
 
 resource "aws_ssm_parameter" "stripe_secret_key" {
   name        = "/${var.name}/stripe/secret_key"
