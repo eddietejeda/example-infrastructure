@@ -16,10 +16,10 @@ resource "aws_codebuild_project" "codebuild_project" {
     type = "NO_ARTIFACTS"
   }
   
-  # cache {
-  #   location = "${aws_s3_bucket.artifacts.bucket}/${var.name}/"
-  #   type = "S3"
-  # }
+  cache {
+    location = "${aws_s3_bucket.bucket.bucket}/codebuild/"
+    type = "S3"
+  }
   
   environment {
     type                        = "LINUX_CONTAINER"
@@ -77,17 +77,17 @@ BUILD_SPEC
 
 
 
-  # logs_config {
-  #   cloudwatch_logs {
-  #     group_name  = "log-group"
-  #     stream_name = "log-stream"
-  #   }
+  logs_config {
+    cloudwatch_logs {
+      group_name  = "log-group"
+      stream_name = "log-stream"
+    }
 
-  #   s3_logs {
-  #     status   = "ENABLED"
-  #     location = "${aws_s3_bucket.bucket.id}/build-log"
-  #   }
-  # }
+    s3_logs {
+      status   = "ENABLED"
+      location = "${aws_s3_bucket.bucket.id}/build-log"
+    }
+  }
 
 
 
@@ -142,8 +142,6 @@ resource "aws_iam_role_policy" "codebuild_policy" {
 }
 
 
-
-
 data "aws_iam_policy_document" "codebuild_assume_role_policy" {
   statement {
     actions = ["sts:AssumeRole"]
@@ -190,7 +188,9 @@ data "aws_iam_policy_document" "codebuild_policy" {
       "s3:*",
     ]
     resources = [
-      "${aws_s3_bucket.artifacts.arn}*",
+      # "${aws_s3_bucket.artifacts.arn}*",
+      "${aws_s3_bucket.bucket.arn}",
+      "${aws_s3_bucket.bucket.arn}/*"
     ]
   }
 }
