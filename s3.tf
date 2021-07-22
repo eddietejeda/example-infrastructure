@@ -30,3 +30,10 @@ resource "aws_s3_bucket_policy" "bucket_policy" {
    ]
   })
 }
+
+resource "aws_s3_bucket_object" "env" {
+  bucket          = aws_s3_bucket.bucket.id
+  key             =  "${var.environment}.env"
+  source          = "env/${var.environment}.env"
+  etag            = filemd5("env/${var.environment}.env")
+}

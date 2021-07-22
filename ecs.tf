@@ -44,6 +44,10 @@ resource "aws_ecs_task_definition" "task_definition" {
       "command": [],
       "environment": [
         {
+          "name": "PRODUCTION_URL",
+          "value": "${local.public_url}"
+        },
+        {
           "name": "DATABASE_URL",
           "value": "${local.database_url}"
         },
@@ -77,6 +81,10 @@ resource "aws_ecs_task_definition" "task_definition" {
       "entryPoint": ["./entrypoints/worker-entrypoint.sh"],
       "environment": [
         {
+          "name": "PRODUCTION_URL",
+          "value": "${local.public_url}"
+        },
+        {
           "name": "DATABASE_URL",
           "value": "${local.database_url}"
         },
@@ -108,6 +116,10 @@ resource "aws_ecs_task_definition" "task_definition" {
       "essential": true,
       "entryPoint": ["./entrypoints/cron-entrypoint.sh"],
       "environment": [
+        {
+          "name": "PRODUCTION_URL",
+          "value": "${local.public_url}"
+        },
         {
           "name": "DATABASE_URL",
           "value": "${local.database_url}"

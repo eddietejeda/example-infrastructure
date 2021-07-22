@@ -14,7 +14,7 @@ terraform {
     organization = "LinkBird"
 
     workspaces {
-      name = "development"
+      name = "production"
     }
   }
 }
