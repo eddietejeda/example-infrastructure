@@ -6,7 +6,6 @@ locals {
   domain_name2    = var.domain_name2
   public_url      = "www.${local.domain_name}"
   public_url2      = "www.${local.domain_name2}"
-  container_image = var.container_image
   bucket_name     = var.bucket_name
   log_group       = "${local.name}-${local.environment}"
   database_url    = "postgres://${module.db.db_instance_username}:${module.db.db_instance_password}@${module.db.db_instance_endpoint}/${module.db.db_instance_username}"
