@@ -30,7 +30,7 @@ resource "aws_ecs_task_definition" "task_definition" {
   container_definitions = jsonencode([
     {
       "name": "app",
-      "image": "${local.container_image}",
+      "image": "${aws_ecr_repository.repository.repository_url}",
       "cpu":    256,
       "memory": 512,
       "links": [],
@@ -68,7 +68,7 @@ resource "aws_ecs_task_definition" "task_definition" {
     },
     {
       "name": "worker",
-      "image": "${local.container_image}",
+      "image": "${aws_ecr_repository.repository.repository_url}",
       "cpu": 256,
       "memory": 512,
       "links": [],
@@ -100,7 +100,7 @@ resource "aws_ecs_task_definition" "task_definition" {
     },
     {
       "name": "cron",
-      "image": "${local.container_image}",
+      "image": "${aws_ecr_repository.repository.repository_url}",
       "cpu": 256,
       "memory": 512,
       "links": [],

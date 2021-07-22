@@ -56,18 +56,16 @@ phases:
       - echo Building the Docker image...          
       - docker login --username $DOCKERHUB_USERNAME --password $DOCKERHUB_ACCESS_TOKEN
       - docker build -t linkbird:latest .
-      - docker tag linkbird:latest ${var.container_image}
+      - docker tag linkbird:latest ${aws_ecr_repository.repository.repository_url}
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
-      - docker push ${var.container_image}
+      - docker push ${aws_ecr_repository.repository.repository_url}
 
 
 BUILD_SPEC
   }  
-
-
 
 
   logs_config {
@@ -82,40 +80,12 @@ BUILD_SPEC
     }
   }
 
-
-
   tags = local.tags
 }
 
 
 
 
-resource "aws_ecr_repository" "repository" {
-  name = "${local.name}-ecr"
-  tags = local.tags
-}
-
-resource "aws_ecr_lifecycle_policy" "lifecycle_policy" {
-  repository = "${aws_ecr_repository.repository.name}"
-
-  policy = <<EOF
-{
-  "rules": [{
-    "rulePriority": 1,
-    "description": "Expire images older than 14 days",
-    "selection": {
-      "tagStatus": "untagged",
-      "countType": "sinceImagePushed",
-      "countUnit": "days",
-      "countNumber": 14
-    },
-    "action": {
-        "type": "expire"
-    }
-  }]
-}
-EOF
-}
 
 resource "aws_cloudwatch_log_group" "codebuild" {
   name          = "${local.name}-codebuild-log"
