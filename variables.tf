@@ -22,12 +22,13 @@ variable "dockerhub_username" { }
 variable "dockerhub_access_token" { }
 
 
-variable "github_url" {
-  default = "github.com/eddietejeda/linkbird-application"
-}
+
+variable "github_repository" { }
+
+variable "github_url" { }
 
 variable "git_branch" {
-  default = "5"
+  default = "main"
 }
 
 
@@ -37,13 +38,6 @@ variable "codebuild_timeout" {
 }
 
 variable "codebuild_buildspec_path" {}
-
-
-variable "codebuild_image" {
-  default = "linkbird:latest"
-}
-
-
 
 
 variable "region" {
@@ -65,6 +59,14 @@ variable "domain_name2" {
 variable "container_image" {
   description = "The name or URL of the Docker image"
 }
+
+variable "codebuild_image" {
+  default = "linkbird:latest"
+}
+
+
+
+
 
 variable "bucket_name" {
   description = "The name of the private bucket"

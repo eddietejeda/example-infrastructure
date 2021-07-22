@@ -35,8 +35,8 @@ resource "aws_codepipeline" "deploy_pipeline" {
 
       configuration = {
         ConnectionArn      = aws_codestarconnections_connection.github_connection.arn
-        FullRepositoryId   = "eddietejeda/linkbird-application"
-        BranchName         = "master"
+        FullRepositoryId   = "${var.github_repository}"
+        BranchName         = "main"
       }
 
       output_artifacts = ["SourceCode"]
@@ -78,27 +78,26 @@ resource "aws_codepipeline_webhook" "webhook" {
   authentication_configuration {
     secret_token = "${aws_ssm_parameter.github_webhook_secret.value}"
   }
-
+  
   filter {
     json_path    = "$.ref"
-    match_equals = "refs/heads/${var.git_branch}"
+    match_equals = "refs/heads/{Branch}"
   }
 }
 
 resource "github_repository_webhook" "webhook" {
-  repository = "${var.github_repo}"
+  name        = "${var.name}-github-webhook"
+  repository  = "${var.github_repo}"
+  events      = ["push"]
+  active      = true
 
   configuration {
-
     url          = "${aws_codepipeline_webhook.webhook.url}"
     content_type = "json"
     insecure_ssl = false
     secret       = "${aws_ssm_parameter.github_webhook_secret.value}"
-
   }
 
-  events = ["push"]
-  active = true
 }
 
 
@@ -115,7 +114,7 @@ data "aws_iam_policy_document" "codepipeline_assume_role_policy" {
 }
 
 data "aws_iam_policy_document" "codepipeline_policy" {
-  # TODO: Fix permissions
+  # TODO: Minimize permissions
   statement {
     sid = "1"
 
