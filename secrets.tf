@@ -68,7 +68,7 @@ resource "aws_ssm_parameter" "twitter_consumer_key" {
 }
 
 resource "aws_ssm_parameter" "twitter_consumer_secret" {
-  name        = "/${var.name}/dockerhub/access_token"
+  name        = "/${var.name}/twitter_consumer/secret"
   description = "xxxx"
   type        = "SecureString"
   value       = "${var.twitter_consumer_secret}"
