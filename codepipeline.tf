@@ -86,7 +86,6 @@ resource "aws_codepipeline_webhook" "webhook" {
 }
 
 resource "github_repository_webhook" "webhook" {
-  name        = "${var.name}-github-webhook"
   repository  = "${var.github_repo}"
   events      = ["push"]
   active      = true
