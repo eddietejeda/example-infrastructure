@@ -9,14 +9,6 @@ resource "aws_s3_bucket" "bucket" {
 }
 
 
-# resource "aws_s3_bucket" "artifacts" {
-#   bucket        = "${var.name}-codepipeline"
-#   acl           = "private"
-#   force_destroy = true
-#   tags          = local.tags
-# }
-
-
 resource "aws_s3_bucket_policy" "bucket_policy" {
   bucket = aws_s3_bucket.bucket.id
   policy = jsonencode({
@@ -46,4 +38,3 @@ resource "aws_s3_bucket_object" "object" {
   source          = "secrets/dev.env"
   etag            = filemd5("secrets/dev.env")
 }
-

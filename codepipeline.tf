@@ -26,20 +26,18 @@ resource "aws_codepipeline" "deploy_pipeline" {
     name = "Source"
 
     action {
-      owner = "AWS"
-      provider = "CodeStarSourceConnection"
-      name = "Source"
-      category = "Source"
-
+      owner     = "AWS"
+      provider  = "CodeStarSourceConnection"
+      name      = "Source"
+      category  = "Source"
+      output_artifacts = ["SourceCode"]
       version = 1
 
       configuration = {
         ConnectionArn      = aws_codestarconnections_connection.github_connection.arn
-        FullRepositoryId   = "${var.github_repository}"
+        FullRepositoryId   = "${var.github_url}"
         BranchName         = "main"
       }
-
-      output_artifacts = ["SourceCode"]
 
     }
   }
@@ -49,7 +47,7 @@ resource "aws_codepipeline" "deploy_pipeline" {
     action {
       owner     = "AWS"
       provider  = "CodeBuild"
-      name      = "buildImage"
+      name      = "BuildImage"
       category  = "Build"
 
       input_artifacts = ["SourceCode"]
@@ -83,20 +81,6 @@ resource "aws_codepipeline_webhook" "webhook" {
     json_path    = "$.ref"
     match_equals = "refs/heads/{Branch}"
   }
-}
-
-resource "github_repository_webhook" "webhook" {
-  repository  = "${var.github_repo}"
-  events      = ["push"]
-  active      = true
-
-  configuration {
-    url          = "${aws_codepipeline_webhook.webhook.url}"
-    content_type = "json"
-    insecure_ssl = false
-    secret       = "${aws_ssm_parameter.github_webhook_secret.value}"
-  }
-
 }
 
 
