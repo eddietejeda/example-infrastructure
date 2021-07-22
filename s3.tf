@@ -30,11 +30,3 @@ resource "aws_s3_bucket_policy" "bucket_policy" {
    ]
   })
 }
-
-# Rename to secrets
-resource "aws_s3_bucket_object" "object" {
-  bucket          = aws_s3_bucket.bucket.id
-  key             =  "dev.env"
-  source          = "secrets/dev.env"
-  etag            = filemd5("secrets/dev.env")
-}
