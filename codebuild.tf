@@ -47,9 +47,9 @@ version: 0.2
 
 env:
   shell: bash
-  secrets-manager:
-    DOCKERHUB_USERNAME: DockerHubSecret:dockerhub_username
-    DOCKERHUB_PASSWORD: DockerHubSecret:dockerhub_password
+  parameter-store:
+      DOCKERHUB_USERNAME: /linkbird/dockerhub/access_token
+      DOCKERHUB_ACCESS_TOKEN: /linkbird/dockerhub_access_token
   
 phases:
   pre_build:
@@ -69,7 +69,6 @@ phases:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
       - docker push $AWS_ECR_URL/linkbird:latest
-
 
 
 BUILD_SPEC

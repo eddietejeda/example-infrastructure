@@ -24,7 +24,6 @@ resource "aws_route53_record" "wwww2" {
   records = [aws_lb.load_balancer.dns_name]
 }
 
-
 resource "aws_route53_record" "cert_validation" {
   for_each = {
     for dvo in aws_acm_certificate.cert.domain_validation_options : dvo.domain_name => {

@@ -7,7 +7,6 @@ variable "codebuild_timeout" {
   default = 5
 }
 
-
 variable "codebuild_buildspec_path" {
   default = "5"
 }
