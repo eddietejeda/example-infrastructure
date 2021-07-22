@@ -3,6 +3,8 @@
 ################################################################################
 
 # Pipeline resource for building docker image and pushing to ECR
+# Reference: https://alite-international.com/minimal-viable-ci-cd-with-terraform-aws-codepipeline/
+
 resource "aws_codestarconnections_connection" "github_connection" {
   name          = "github-connection"
   provider_type = "GitHub"
@@ -36,7 +38,7 @@ resource "aws_codepipeline" "deploy_pipeline" {
       configuration = {
         ConnectionArn      = aws_codestarconnections_connection.github_connection.arn
         FullRepositoryId   = "${var.github_repository}"
-        BranchName         = "master"
+        BranchName         = "main"
       }
 
     }
