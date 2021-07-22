@@ -70,7 +70,7 @@ resource "aws_codepipeline" "deploy_pipeline" {
 # Webhook 
 
 resource "aws_codepipeline_webhook" "webhook" {
-  name            = "${var.name}_TERRAFORM"
+  name            = "${var.name}-codepipeline"
   authentication  = "GITHUB_HMAC"
   target_action   = "Source"
   target_pipeline = "${aws_codepipeline.deploy_pipeline.name}"
