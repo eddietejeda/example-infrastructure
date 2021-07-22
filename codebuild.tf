@@ -48,8 +48,8 @@ version: 0.2
 env:
   shell: bash
   parameter-store:
-      DOCKERHUB_USERNAME: /linkbird/dockerhub/access_token
-      DOCKERHUB_ACCESS_TOKEN: /linkbird/dockerhub_access_token
+      DOCKERHUB_USERNAME: /linkbird/dockerhub/username
+      DOCKERHUB_ACCESS_TOKEN: /linkbird/dockerhub/access_token
   
 phases:
   pre_build:
