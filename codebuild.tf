@@ -144,13 +144,6 @@ resource "aws_iam_role_policy" "codebuild_policy" {
 
 
 
-# Codebuild IAM data for codebuild project
-
-data "aws_kms_alias" "s3kmskey" {
-  name = "alias/aws/s3"
-}
-
-
 data "aws_iam_policy_document" "codebuild_assume_role_policy" {
   statement {
     actions = ["sts:AssumeRole"]
@@ -177,6 +170,8 @@ data "aws_iam_policy_document" "codebuild_policy" {
       "ecr:UploadLayerPart",
       "ecr:CompleteLayerUpload",
       "ecr:PutImage",
+      "ssm:DescribeParameters",
+      "ssm:GetParameters"
     ]
     resources = [
       "*",

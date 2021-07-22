@@ -1,3 +1,9 @@
+# Codebuild IAM data for codebuild project
+data "aws_kms_alias" "s3kmskey" {
+  name = "alias/aws/s3"
+}
+
+
 resource "aws_ssm_parameter" "dockerhub_username" {
   name        = "/${var.name}/dockerhub/username"
   description = "Used to auth password"
