@@ -63,12 +63,12 @@ phases:
       - echo Building the Docker image...          
       - docker login --username $DOCKERHUB_USERNAME --password $DOCKERHUB_ACCESS_TOKEN
       - docker build -t linkbird:latest .
-      - docker tag linkbird:latest $AWS_ECR_URL/linkbird:latest
+      - docker tag linkbird:latest ${var.container_image}
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
-      - docker push $AWS_ECR_URL/linkbird:latest
+      - docker push ${var.container_image}
 
 
 BUILD_SPEC
