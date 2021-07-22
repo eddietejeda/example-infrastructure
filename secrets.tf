@@ -35,7 +35,6 @@ resource "aws_ssm_parameter" "app_encryption_key" {
   tags        = local.tags
 }
 
-
 resource "aws_ssm_parameter" "new_relic_license_key" {
   name        = "/${var.name}/new_relic/license_key"
   description = "xxxx"
@@ -115,8 +114,6 @@ resource "aws_ssm_parameter" "stripe_product_key" {
   value       = "${var.stripe_product_key}"
   tags        = local.tags
 }
-
-
 
 resource "aws_ssm_parameter" "stripe_publishable_key" {
   name        = "/${var.name}/stripe/publishable_key"
