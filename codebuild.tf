@@ -17,7 +17,7 @@ resource "aws_codebuild_project" "codebuild_project" {
   }
   
   cache {
-    location = "${aws_s3_bucket.bucket.bucket}/codebuild/"
+    location = "${aws_s3_bucket.bucket.id}"
     type = "S3"
   }
   
@@ -27,16 +27,10 @@ resource "aws_codebuild_project" "codebuild_project" {
     compute_type                = "BUILD_GENERAL1_SMALL"
     image_pull_credentials_type = "CODEBUILD"
     privileged_mode             = true
-  
-    # registry_credentials {
-    #   credential_provider = "SECRET_MANAGER"
-    #   credential          = "some_arn"
-    # }
   }
 
 
   source {
-    # type = "CODEPIPELINE"
     type                  = "GITHUB"
     location              = "${var.github_url}"
     git_clone_depth       = 1
@@ -188,7 +182,6 @@ data "aws_iam_policy_document" "codebuild_policy" {
       "s3:*",
     ]
     resources = [
-      # "${aws_s3_bucket.artifacts.arn}*",
       "${aws_s3_bucket.bucket.arn}",
       "${aws_s3_bucket.bucket.arn}/*"
     ]

@@ -13,7 +13,7 @@ resource "aws_codepipeline" "deploy_pipeline" {
   role_arn = "${aws_iam_role.codepipeline_role.arn}"
 
   artifact_store {
-    location = "${aws_s3_bucket.artifacts.bucket}"
+    location = "${aws_s3_bucket.bucket.id}"
     type     = "S3"
 
     encryption_key {
@@ -44,27 +44,6 @@ resource "aws_codepipeline" "deploy_pipeline" {
     }
   }
 
-
-  # stage {
-  #   name = "Build"
-
-  #   action {
-
-  #     name             = "Build"
-  #     category         = "Build"
-  #     owner            = "AWS"
-  #     provider         = "CodeBuild"
-  #     input_artifacts  = ["source_output"]
-  #     output_artifacts = ["build_output"]
-  #     version          = "1"
-
-  #     configuration = {
-  #       ProjectName = "${aws_codebuild_project.codebuild_project.name}"
-  #     }
-
-  #   }
-  # }
-
   stage {
     name = "BuildImage"
     action {
@@ -88,8 +67,7 @@ resource "aws_codepipeline" "deploy_pipeline" {
 }
 
 
-# Webhook
-
+# Webhook 
 
 resource "aws_codepipeline_webhook" "webhook" {
   name            = "${var.name}_TERRAFORM"
@@ -161,7 +139,7 @@ data "aws_iam_policy_document" "codepipeline_policy" {
       "s3:*",
     ]
     resources = [
-      "${aws_s3_bucket.artifacts.arn}*",
+      "${aws_s3_bucket.bucket.arn}*",
     ]
   }
   statement {
@@ -205,11 +183,4 @@ resource "aws_iam_role_policy" "codepipeline_role_policy" {
   name    = "${var.name}-codepipeline"  
   role    = "${aws_iam_role.codepipeline_role.name}"
   policy  = "${data.aws_iam_policy_document.codepipeline_policy.json}"
-}
-
-resource "aws_s3_bucket" "artifacts" {
-  bucket        = "${var.name}-codepipeline"
-  acl           = "private"
-  force_destroy = true
-  tags          = local.tags
 }
