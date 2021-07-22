@@ -56,10 +56,6 @@ variable "domain_name2" {
   description = "The primary domain name"
 }
 
-variable "container_image" {
-  description = "The name or URL of the Docker image"
-}
-
 variable "codebuild_image" {
   default = "linkbird:latest"
 }
