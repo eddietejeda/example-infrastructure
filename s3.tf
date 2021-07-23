@@ -1,13 +1,13 @@
 ################################################################################
 # S3
 ################################################################################
+
 resource "aws_s3_bucket" "bucket" {
   bucket          = "${local.bucket_name}"
   acl             = "private"
   force_destroy   = true
   tags            = local.tags
 }
-
 
 resource "aws_s3_bucket_policy" "bucket_policy" {
   bucket = aws_s3_bucket.bucket.id

@@ -1,3 +1,29 @@
+## Deployment Workflow
+
+This environment is configured to run on [Terraform Cloud](https://www.terraform.io/cloud).
+
+Any commit to this repositiory will trigger a build in Terraform Cloud
+
+If you run this locally, you will need to define one of the following two files.
+
+- `variables.tfvar`      - This file be used if you want to run `apply` directly from your computer with these values.
+- `variables.auto.tfvar` - This file will be passed to Terraform Cloud and run `apply` remotely with these values.
+
+If you want to remove Terraform Cloud integration all together, remove this section form `versions.tf`
+
+https://app.terraform.io/app/LinkBird/workspaces/production
+```
+  backend "remote" {
+    organization = "LinkBird"
+
+    workspaces {
+      name = "production"
+    }
+  }
+```
+
+
+
 ## Naming convention
 
 If we expect there to only be one instance of a resource type, just call it by 

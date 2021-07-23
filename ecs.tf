@@ -19,13 +19,13 @@ resource "aws_ecs_cluster" "cluster" {
 }
 
 resource "aws_ecs_task_definition" "task_definition" {
-  family                   = local.name
-  network_mode             = "awsvpc"
-  requires_compatibilities = ["FARGATE"]
-  cpu                      = 1024
-  memory                   = 2048
-  task_role_arn            = aws_iam_role.iam_role.arn
-  execution_role_arn       = aws_iam_role.iam_role.arn
+  family                    = local.name
+  network_mode              = "awsvpc"
+  requires_compatibilities  = ["FARGATE"]
+  cpu                       = 1024
+  memory                    = 2048
+  task_role_arn             = aws_iam_role.iam_role.arn
+  execution_role_arn        = aws_iam_role.iam_role.arn
 
   container_definitions = jsonencode([
     {
