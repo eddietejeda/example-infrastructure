@@ -42,21 +42,7 @@ resource "aws_ecs_task_definition" "task_definition" {
       "essential": true,
       "entryPoint": ["./entrypoints/app-entrypoint.sh"],
       "command": [],
-      "environment": [
-        {
-          "name": "PRODUCTION_URL",
-          "value": "${local.public_url}"
-        },
-        {
-          "name": "DATABASE_URL",
-          "value": "${local.database_url}"
-        },
-        {
-          "name": "REDIS_URL",
-          "value": "${local.redis_url}"
-        }
-
-      ],
+      "environment": local.application_env,
       "environmentFiles": [{
         "value": "${aws_s3_bucket.bucket.arn}/${local.environment}.env",
         "type": "s3"
@@ -79,20 +65,7 @@ resource "aws_ecs_task_definition" "task_definition" {
       "portMappings": [],
       "essential": true,
       "entryPoint": ["./entrypoints/worker-entrypoint.sh"],
-      "environment": [
-        {
-          "name": "PRODUCTION_URL",
-          "value": "${local.public_url}"
-        },
-        {
-          "name": "DATABASE_URL",
-          "value": "${local.database_url}"
-        },
-        {
-          "name": "REDIS_URL",
-          "value": "${local.redis_url}"
-        }
-      ],
+      "environment": local.application_env,
       "environmentFiles": [{
         "value": "${aws_s3_bucket.bucket.arn}/${local.environment}.env",
         "type": "s3"
@@ -115,20 +88,7 @@ resource "aws_ecs_task_definition" "task_definition" {
       "portMappings": [],
       "essential": true,
       "entryPoint": ["./entrypoints/cron-entrypoint.sh"],
-      "environment": [
-        {
-          "name": "PRODUCTION_URL",
-          "value": "${local.public_url}"
-        },
-        {
-          "name": "DATABASE_URL",
-          "value": "${local.database_url}"
-        },
-        {
-          "name": "REDIS_URL",
-          "value": "${local.redis_url}"
-        }
-      ],
+      "environment": local.application_env,
       "environmentFiles": [{
         "value": "${aws_s3_bucket.bucket.arn}/${local.environment}.env",
         "type": "s3"
@@ -178,3 +138,4 @@ resource "aws_ecs_service" "ecs_service" {
     weight            = "1"
   }
 }
+
