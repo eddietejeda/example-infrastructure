@@ -30,9 +30,6 @@ variable "dockerhub_access_token" {}
 variable "codebuild_buildspec_path" {}
 
 
-# SSH
-variable "ssh_key_name" {}
-
 variable "git_branch" {
   default = "main"
 }

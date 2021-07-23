@@ -41,8 +41,8 @@ version: 0.2
 env:
   shell: bash
   parameter-store:
-      DOCKERHUB_USERNAME: /linkbird/dockerhub/username
-      DOCKERHUB_ACCESS_TOKEN: /linkbird/dockerhub/access_token
+      DOCKERHUB_USERNAME: /${var.name}/dockerhub/username
+      DOCKERHUB_ACCESS_TOKEN: /${var.name}/dockerhub/access_token
   
 phases:
   pre_build:
@@ -55,8 +55,8 @@ phases:
       - echo Build started on `date`
       - echo Building the Docker image...          
       - docker login --username $DOCKERHUB_USERNAME --password $DOCKERHUB_ACCESS_TOKEN
-      - docker build -t linkbird:latest .
-      - docker tag linkbird:latest ${aws_ecr_repository.repository.repository_url}
+      - docker build -t ${var.codebuild_image} .
+      - docker tag ${var.codebuild_image} ${aws_ecr_repository.repository.repository_url}
   post_build:
     commands:
       - echo Build completed on `date`
