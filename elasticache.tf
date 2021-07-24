@@ -20,3 +20,12 @@ resource "aws_elasticache_cluster" "redis" {
   apply_immediately    = true
   port                 = 6379
 }
+
+
+
+
+# TODO: Need to lock down permissions
+resource "aws_iam_role_policy_attachment" "ecs_elasticache_role" {
+  role       = aws_iam_role.iam_role.id
+  policy_arn = "arn:aws:iam::aws:policy/AmazonElastiCacheFullAccess"
+}

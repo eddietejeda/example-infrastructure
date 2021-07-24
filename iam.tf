@@ -46,10 +46,10 @@ resource "aws_iam_role_policy_attachment" "ecs_ec2_cloudwatch_role" {
   policy_arn = "arn:aws:iam::aws:policy/CloudWatchLogsFullAccess"
 }
 
-# TODO: Need to lock down permissions
-resource "aws_iam_role_policy_attachment" "ecs_elasticache_role" {
-  role       = aws_iam_role.iam_role.id
-  policy_arn = "arn:aws:iam::aws:policy/AmazonElastiCacheFullAccess"
-}
+# # TODO: Need to lock down permissions
+# resource "aws_iam_role_policy_attachment" "ecs_elasticache_role" {
+#   role       = aws_iam_role.iam_role.id
+#   policy_arn = "arn:aws:iam::aws:policy/AmazonElastiCacheFullAccess"
+# }
 
 
