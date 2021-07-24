@@ -28,7 +28,6 @@ resource "aws_codebuild_project" "codebuild_project" {
     privileged_mode             = true
   }
 
-
   source {
     type                  = "GITHUB"
     location              = "${var.github_url}"
@@ -36,7 +35,6 @@ resource "aws_codebuild_project" "codebuild_project" {
 
     buildspec = <<BUILD_SPEC
 version: 0.2
-
 
 env:
   shell: bash
@@ -63,10 +61,8 @@ phases:
       - echo Pushing the Docker image...
       - docker push ${aws_ecr_repository.repository.repository_url}
 
-
 BUILD_SPEC
   }  
-
 
   logs_config {
     cloudwatch_logs {
@@ -86,12 +82,7 @@ BUILD_SPEC
 
 
 
-
-resource "aws_cloudwatch_log_group" "codebuild" {
-  name          = "${local.name}-codebuild-log"
-  tags          = local.tags
-}
-
+# IAM Roles / Policy
 resource "aws_iam_role" "codebuild_role" {
   name                = "${local.name}-codebuild-role"
   assume_role_policy  = "${data.aws_iam_policy_document.codebuild_assume_role_policy.json}"
@@ -155,4 +146,12 @@ data "aws_iam_policy_document" "codebuild_policy" {
       "${aws_s3_bucket.bucket.arn}/*"
     ]
   }
+}
+
+
+
+# Cloudwatch
+resource "aws_cloudwatch_log_group" "codebuild" {
+  name          = "${local.name}-codebuild-log"
+  tags          = local.tags
 }
