@@ -30,7 +30,7 @@ resource "aws_ecs_task_definition" "task_definition" {
   container_definitions = jsonencode([
     {
       "name": "app",
-      "image": "${aws_ecr_repository.repository.repository_url}",
+      "image": "${aws_ecr_repository.repository.repository_url}@${data.aws_ecr_image.image.image_digest}",
       "cpu":    256,
       "memory": 512,
       "links": [],
@@ -58,7 +58,7 @@ resource "aws_ecs_task_definition" "task_definition" {
     },
     {
       "name": "worker",
-      "image": "${aws_ecr_repository.repository.repository_url}",
+      "image": "${aws_ecr_repository.repository.repository_url}@${data.aws_ecr_image.image.image_digest}",
       "cpu": 256,
       "memory": 512,
       "links": [],
@@ -81,7 +81,7 @@ resource "aws_ecs_task_definition" "task_definition" {
     },
     {
       "name": "cron",
-      "image": "${aws_ecr_repository.repository.repository_url}",
+      "image": "${aws_ecr_repository.repository.repository_url}@${data.aws_ecr_image.image.image_digest}",
       "cpu": 256,
       "memory": 512,
       "links": [],
@@ -112,9 +112,10 @@ resource "aws_ecs_service" "ecs_service" {
   cluster         = aws_ecs_cluster.cluster.id
   task_definition = aws_ecs_task_definition.task_definition.arn
 
-  desired_count                      = 1
-  deployment_maximum_percent         = 200
-  deployment_minimum_healthy_percent = 50
+  desired_count                       = 1
+  deployment_maximum_percent          = 200
+  deployment_minimum_healthy_percent  = 50
+  force_new_deployment                = true
 
   load_balancer {
     target_group_arn = aws_lb_target_group.target_group.arn
@@ -138,4 +139,3 @@ resource "aws_ecs_service" "ecs_service" {
     weight            = "1"
   }
 }
-

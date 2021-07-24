@@ -3,6 +3,11 @@ resource "aws_ecr_repository" "repository" {
   tags = local.tags
 }
 
+data "aws_ecr_image" "image" {
+  repository_name = "linkbird"
+  image_tag       = "latest"
+}
+
 resource "aws_ecr_lifecycle_policy" "lifecycle_policy" {
   repository = "${aws_ecr_repository.repository.name}"
 
