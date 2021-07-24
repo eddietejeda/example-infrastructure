@@ -27,6 +27,7 @@ resource "aws_ecs_task_definition" "task_definition" {
   task_role_arn             = aws_iam_role.iam_role.arn
   execution_role_arn        = aws_iam_role.iam_role.arn
 
+  # We image_digest to force ECS to redeploy on every push if there is a change to the docker image
   container_definitions = jsonencode([
     {
       "name": "app",
