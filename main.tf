@@ -16,6 +16,7 @@ locals {
     Environment = "${local.environment}"
   }
 
+
   application_env = [
       {
         name =  "PRODUCTION_URL",
@@ -58,8 +59,8 @@ locals {
         value = "${var.twitter_worker_access_token}"
       },
       {
-        name =  "TWITTER_WORKER_ACCESS_CONSUMER_KEY",
-        value = "${var.twitter_worker_access_consumer_key}"
+        name =  "TWITTER_WORKER_ACCESS_TOKEN_SECRET",
+        value = "${var.twitter_worker_access_token_secret}"
       },
       {
         name =  "TWITTER_WORKER_CONSUMER_KEY",
