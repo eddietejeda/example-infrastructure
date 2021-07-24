@@ -52,7 +52,7 @@ resource "aws_ecs_task_definition" "task_definition" {
         "options":{  
           "awslogs-group": "${local.log_group}",
           "awslogs-region": "${local.region}",
-          "awslogs-stream-prefix": "${local.name}-app"
+          "awslogs-stream-prefix": "${local.name}"
         }
       }
     },
@@ -75,7 +75,7 @@ resource "aws_ecs_task_definition" "task_definition" {
         "options":{  
           "awslogs-group": "${local.log_group}",
           "awslogs-region": "${local.region}",
-          "awslogs-stream-prefix": "${local.name}-worker"
+          "awslogs-stream-prefix": "${local.name}"
         }
       }
     },
@@ -98,7 +98,7 @@ resource "aws_ecs_task_definition" "task_definition" {
         "options":{  
           "awslogs-group": "${local.log_group}",
           "awslogs-region": "${local.region}",
-          "awslogs-stream-prefix": "${local.name}-cron"
+          "awslogs-stream-prefix": "${local.name}"
         }
       }
     }
