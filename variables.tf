@@ -72,19 +72,17 @@ variable  "github_webhook_secret" {}
 variable  "app_encryption_key" {} 
 variable  "new_relic_license_key" {} 
 
+# Main tokens
 variable  "twitter_access_token" {} 
 variable  "twitter_access_token_secret" {} 
-
 variable  "twitter_consumer_key" {} 
 variable  "twitter_consumer_secret" {} 
 
-
-variable  "twitter_app_access_token" {} 
-variable  "twitter_app_access_consumer_key" {} 
-
-
-variable  "twitter_app_consumer_key" {} 
-variable  "twitter_app_consumer_secret" {} 
+# Worker tokens
+variable  "twitter_worker_access_token" {} 
+variable  "twitter_worker_access_token_secret" {} 
+variable  "twitter_worker_consumer_key" {}  
+variable  "twitter_worker_consumer_secret" {} 
 
 
 variable  "stripe_price_key" {} 
