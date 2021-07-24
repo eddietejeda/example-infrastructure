@@ -75,27 +75,27 @@ resource "aws_ssm_parameter" "twitter_consumer_secret" {
   tags        = local.tags
 }
 
-resource "aws_ssm_parameter" "twitter_app_access_token" {
-  name        = "/${var.name}/twitter_app/token_secret"
+resource "aws_ssm_parameter" "twitter_worker_access_token" {
+  name        = "/${var.name}/twitter_worker/token_secret"
   description = "xxxx"
   type        = "SecureString"
-  value       = "${var.twitter_app_access_token}"
+  value       = "${var.twitter_worker_access_token}"
   tags        = local.tags
 }
 
-resource "aws_ssm_parameter" "twitter_app_consumer_key" {
-  name        = "/${var.name}/twitter_app/consumer_key"
+resource "aws_ssm_parameter" "twitter_worker_consumer_key" {
+  name        = "/${var.name}/twitter_worker/consumer_key"
   description = "xxxx"
   type        = "SecureString"
-  value       = "${var.twitter_app_consumer_key}"
+  value       = "${var.twitter_worker_consumer_key}"
   tags        = local.tags
 }
 
-resource "aws_ssm_parameter" "twitter_app_consumer_secret" {
-  name        = "/${var.name}/twitter_app/consumer_secret"
+resource "aws_ssm_parameter" "twitter_worker_consumer_secret" {
+  name        = "/${var.name}/twitter_worker/consumer_secret"
   description = "xxxx"
   type        = "SecureString"
-  value       = "${var.twitter_app_consumer_secret}"
+  value       = "${var.twitter_worker_consumer_secret}"
   tags        = local.tags
 }
 

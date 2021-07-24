@@ -54,20 +54,20 @@ locals {
         value = "${var.twitter_consumer_secret}"
       },
       {
-        name =  "TWITTER_APP_ACCESS_TOKEN",
-        value = "${var.twitter_app_access_token}"
+        name =  "TWITTER_WORKER_ACCESS_TOKEN",
+        value = "${var.twitter_worker_access_token}"
       },
       {
-        name =  "TWITTER_APP_ACCESS_CONSUMER_KEY",
-        value = "${var.twitter_app_access_consumer_key}"
+        name =  "TWITTER_WORKER_ACCESS_CONSUMER_KEY",
+        value = "${var.twitter_worker_access_consumer_key}"
       },
       {
-        name =  "TWITTER_APP_CONSUMER_KEY",
-        value = "${var.twitter_app_consumer_key}"
+        name =  "TWITTER_WORKER_CONSUMER_KEY",
+        value = "${var.twitter_worker_consumer_key}"
       },
       {
-        name =  "TWITTER_APP_CONSUMER_SECRET",
-        value = "${var.twitter_app_consumer_secret}"
+        name =  "TWITTER_WORKER_CONSUMER_SECRET",
+        value = "${var.twitter_worker_consumer_secret}"
       },
       {
         name =  "STRIPE_PRICE_KEY",
