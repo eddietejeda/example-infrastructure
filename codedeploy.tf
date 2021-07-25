@@ -27,30 +27,26 @@ resource "aws_codedeploy_deployment_group" "deployment_group" {
 
 # IAM
 resource "aws_iam_role" "codedeploy_role" {
-  name    = "${var.name}-codedeploy-role"
-  path    = "/"
-  tags    = local.tags
+  name = "${var.name}-role"
 
-  assume_role_policy = data.aws_iam_policy_document.codedeploy_assume_role_policy.json
-}
-
-resource "aws_iam_instance_profile" "codedeploy_instance_profile" {
-  name       = "${var.name}-codedeploy-instance-profile"
-  role       = aws_iam_role.codedeploy_role.name
-}
-
-data "aws_iam_policy_document" "codedeploy_assume_role_policy" {
-  statement {
-    actions = ["sts:AssumeRole"]
-
-    principals {
-      type        = "Service"
-      identifiers = ["ec2.amazonaws.com", "ecs.amazonaws.com"]
+  assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "",
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "codedeploy.amazonaws.com"
+      },
+      "Action": "sts:AssumeRole"
     }
-  }
+  ]
+}
+EOF
 }
 
-resource "aws_iam_role_policy_attachment" "codedeploy_role_ec2container_service" {
-  role       = aws_iam_role.codedeploy_role.id
-  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEC2ContainerServiceforEC2Role"
+resource "aws_iam_role_policy_attachment" "AWSCodeDeployRole" {
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSCodeDeployRole"
+  role       = aws_iam_role.codedeploy_role.name
 }
