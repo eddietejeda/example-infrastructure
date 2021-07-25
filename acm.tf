@@ -33,4 +33,3 @@ resource "aws_acm_certificate_validation" "certificate_validation" {
   #   command = "sleep 10"
   # }
 }
-

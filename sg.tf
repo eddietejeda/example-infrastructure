@@ -149,7 +149,3 @@ resource "aws_security_group_rule" "managed_services_allow_vpc_redis_inbound" {
   cidr_blocks              = ["10.0.0.0/16"] #!
   security_group_id        = aws_security_group.managed_services.id
 }
-
-
-
-

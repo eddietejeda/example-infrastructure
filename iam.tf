@@ -51,5 +51,3 @@ resource "aws_iam_role_policy_attachment" "ecs_ec2_cloudwatch_role" {
 #   role       = aws_iam_role.iam_role.id
 #   policy_arn = "arn:aws:iam::aws:policy/AmazonElastiCacheFullAccess"
 # }
-
-

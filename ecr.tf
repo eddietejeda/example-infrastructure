@@ -15,12 +15,11 @@ resource "aws_ecr_lifecycle_policy" "lifecycle_policy" {
 {
   "rules": [{
     "rulePriority": 1,
-    "description": "Expire images older than 14 days",
+    "description": "Expire images after 5 releases",
     "selection": {
       "tagStatus": "untagged",
-      "countType": "sinceImagePushed",
-      "countUnit": "days",
-      "countNumber": 14
+      "countType": "imageCountMoreThan",
+      "countNumber": 5
     },
     "action": {
         "type": "expire"
