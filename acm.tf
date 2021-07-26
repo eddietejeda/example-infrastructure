@@ -29,7 +29,7 @@ resource "aws_acm_certificate_validation" "certificate_validation" {
   validation_record_fqdns = [for record in aws_route53_record.cert_validation : record.fqdn]
 
   # Optional: Hook to add delay before aws_lb_listener_certificate.lb_listener_certificate
-  # provisioner "local-exec" {
-  #   command = "sleep 10"
-  # }
+  provisioner "local-exec" {
+    command = "sleep 10"
+  }
 }
