@@ -35,21 +35,21 @@ resource "aws_lb" "load_balancer" {
   ]
 }
 
-# Forward all traffic from the ALB to the target group
-resource "aws_lb_listener" "https_lb_listener" {
-  load_balancer_arn = aws_lb.load_balancer.id
-  certificate_arn   = aws_acm_certificate.cert.arn
-  protocol          = "HTTPS"
-  ssl_policy        = "ELBSecurityPolicy-2016-08"
-  port              = 443
+# # Forward all traffic from the ALB to the target group
+# resource "aws_lb_listener" "https_lb_listener" {
+#   load_balancer_arn = aws_lb.load_balancer.id
+#   certificate_arn   = aws_acm_certificate.cert.arn
+#   protocol          = "HTTPS"
+#   ssl_policy        = "ELBSecurityPolicy-2016-08"
+#   port              = 443
 
-  default_action {
-    target_group_arn = aws_lb_target_group.target_group.id
-    type             = "forward"
-  }
+#   default_action {
+#     target_group_arn = aws_lb_target_group.target_group.id
+#     type             = "forward"
+#   }
 
-  tags = local.tags
-}
+#   tags = local.tags
+# }
 
 # Redirect all http traffic from the ALB to the https listener
 resource "aws_lb_listener" "http_lb_listener" {
