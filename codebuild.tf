@@ -148,8 +148,6 @@ data "aws_iam_policy_document" "codebuild_policy" {
   }
 }
 
-
-
 # Cloudwatch
 resource "aws_cloudwatch_log_group" "codebuild" {
   name          = "${local.name}-codebuild-log"

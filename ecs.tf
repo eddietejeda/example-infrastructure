@@ -116,11 +116,11 @@ resource "aws_ecs_service" "ecs_service" {
   deployment_minimum_healthy_percent  = 50
   force_new_deployment                = true
 
-  # load_balancer {
-  #   target_group_arn = aws_lb_target_group.target_group.arn
-  #   container_name = "app"
-  #   container_port = 9292
-  # }
+  load_balancer {
+    target_group_arn = aws_lb_target_group.target_group.arn
+    container_name = "app"
+    container_port = 9292
+  }
 
   network_configuration {
     subnets           = module.vpc.public_subnets 

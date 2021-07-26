@@ -86,7 +86,4 @@ locals {
       value = "${var.stripe_secret_key}"
     }
   ]
-
-
-
 }
