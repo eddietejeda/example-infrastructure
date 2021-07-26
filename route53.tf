@@ -9,7 +9,7 @@ resource "aws_route53_zone" "zone" {
 
 resource "aws_route53_record" "www" {
   zone_id = aws_route53_zone.zone.zone_id
-  name    = "${local.public_url}"
+  name    = "${local.public_url2}"
   type    = "CNAME"
   ttl     = "300"
   records = [aws_lb.load_balancer.dns_name]
@@ -18,7 +18,7 @@ resource "aws_route53_record" "www" {
 
 resource "aws_route53_record" "wwww2" {
   zone_id = aws_route53_zone.zone.zone_id
-  name    = "${local.public_url2}"
+  name    = "${local.public_url}"
   type    = "CNAME"
   ttl     = "300"
   records = [aws_lb.load_balancer.dns_name]

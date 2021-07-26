@@ -30,20 +30,20 @@ resource "aws_ecs_task_definition" "task_definition" {
   # We image_digest to force ECS to redeploy on every push if there is a change to the docker image
   container_definitions = jsonencode([
     {
-      "name": "app",
-      "image": "${aws_ecr_repository.repository.repository_url}@${data.aws_ecr_image.image.image_digest}",
+      "name":   "app",
+      "image":  "${aws_ecr_repository.repository.repository_url}@${data.aws_ecr_image.image.image_digest}",
       "cpu":    256,
       "memory": 512,
-      "links": [],
+      "links":  [],
       "portMappings": [{
         "containerPort":  9292,
         "hostPort":       9292,
         "protocol":       "tcp"
       }],
-      "essential": true,
-      "entryPoint": ["./entrypoints/app-entrypoint.sh"],
-      "command": [],
-      "environment": local.application_env,
+      "essential":    true,
+      "entryPoint":   ["./entrypoints/app-entrypoint.sh"],
+      "command":      [],
+      "environment":  local.application_env,
       "environmentFiles": [{
         "value": "${aws_s3_bucket.bucket.arn}/${local.environment}.env",
         "type": "s3"
@@ -105,8 +105,6 @@ resource "aws_ecs_task_definition" "task_definition" {
     }
   ])
 }
-
-
 
 resource "aws_ecs_service" "ecs_service" {
   name            = "${local.name}-service" 
