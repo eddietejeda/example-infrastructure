@@ -11,5 +11,5 @@ output "load_balancer_url" {
 }
 
 output "public_url" {
-  value = "https://${local.public_url}"
+  value = "https://${local.primary_url}"
 }

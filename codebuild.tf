@@ -84,13 +84,13 @@ BUILD_SPEC
 
 # IAM Roles / Policy
 resource "aws_iam_role" "codebuild_role" {
-  name                = "${local.name}-codebuild-role"
+  name                = "${var.name}-codebuild-role"
   assume_role_policy  = "${data.aws_iam_policy_document.codebuild_assume_role_policy.json}"
   tags                = local.tags
 }
 
 resource "aws_iam_role_policy" "codebuild_policy" {
-  name      = "${local.name}-codebuild-role-policy"
+  name      = "${var.name}-codebuild-role-policy"
   role      = "${aws_iam_role.codebuild_role.name}"
   policy    = "${data.aws_iam_policy_document.codebuild_policy.json}"
 }
@@ -150,6 +150,6 @@ data "aws_iam_policy_document" "codebuild_policy" {
 
 # Cloudwatch
 resource "aws_cloudwatch_log_group" "codebuild" {
-  name          = "${local.name}-codebuild-log"
+  name          = "${var.name}-codebuild-log"
   tags          = local.tags
 }

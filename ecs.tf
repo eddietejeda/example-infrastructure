@@ -3,7 +3,7 @@
 ################################################################################
 
 resource "aws_ecs_cluster" "cluster" {
-  name = "${local.name}-cluster" 
+  name = "${var.name}-cluster" 
   capacity_providers = ["FARGATE_SPOT", "FARGATE"]
 
   default_capacity_provider_strategy {
@@ -19,7 +19,7 @@ resource "aws_ecs_cluster" "cluster" {
 }
 
 resource "aws_ecs_task_definition" "task_definition" {
-  family                    = local.name
+  family                    = var.name
   network_mode              = "awsvpc"
   requires_compatibilities  = ["FARGATE"]
   cpu                       = 1024
@@ -45,15 +45,15 @@ resource "aws_ecs_task_definition" "task_definition" {
       "command":      [],
       "environment":  local.application_env,
       "environmentFiles": [{
-        "value": "${aws_s3_bucket.bucket.arn}/${local.environment}.env",
+        "value": "${aws_s3_bucket.bucket.arn}/${var.environment}.env",
         "type": "s3"
       }],      
       "logConfiguration":{
         "logDriver":"awslogs",
         "options":{  
-          "awslogs-group": "${local.log_group}",
-          "awslogs-region": "${local.region}",
-          "awslogs-stream-prefix": "${local.name}"
+          "awslogs-group": "${var.name}-${var.environment}",
+          "awslogs-region": "${var.region}",
+          "awslogs-stream-prefix": "${var.name}"
         }
       }
     },
@@ -68,15 +68,15 @@ resource "aws_ecs_task_definition" "task_definition" {
       "entryPoint": ["./entrypoints/worker-entrypoint.sh"],
       "environment": local.application_env,
       "environmentFiles": [{
-        "value": "${aws_s3_bucket.bucket.arn}/${local.environment}.env",
+        "value": "${aws_s3_bucket.bucket.arn}/${var.environment}.env",
         "type": "s3"
       }],      
       "logConfiguration":{
         "logDriver":"awslogs",
         "options":{  
-          "awslogs-group": "${local.log_group}",
-          "awslogs-region": "${local.region}",
-          "awslogs-stream-prefix": "${local.name}"
+          "awslogs-group": "${var.name}-${var.environment}",
+          "awslogs-region": "${var.region}",
+          "awslogs-stream-prefix": "${var.name}"
         }
       }
     },
@@ -91,15 +91,15 @@ resource "aws_ecs_task_definition" "task_definition" {
       "entryPoint": ["./entrypoints/cron-entrypoint.sh"],
       "environment": local.application_env,
       "environmentFiles": [{
-        "value": "${aws_s3_bucket.bucket.arn}/${local.environment}.env",
+        "value": "${aws_s3_bucket.bucket.arn}/${var.environment}.env",
         "type": "s3"
       }],      
       "logConfiguration":{
         "logDriver":"awslogs",
         "options":{  
-          "awslogs-group": "${local.log_group}",
-          "awslogs-region": "${local.region}",
-          "awslogs-stream-prefix": "${local.name}"
+          "awslogs-group": "${var.name}-${var.environment}",
+          "awslogs-region": "${var.region}",
+          "awslogs-stream-prefix": "${var.name}"
         }
       }
     }
@@ -107,7 +107,7 @@ resource "aws_ecs_task_definition" "task_definition" {
 }
 
 resource "aws_ecs_service" "ecs_service" {
-  name            = "${local.name}-service" 
+  name            = "${var.name}-service" 
   cluster         = aws_ecs_cluster.cluster.id
   task_definition = aws_ecs_task_definition.task_definition.arn
 

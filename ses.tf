@@ -9,12 +9,12 @@ resource "aws_ses_domain_mail_from" "mailer" {
 
 # Mailer SES Domain Identity
 resource "aws_ses_domain_identity" "mailer" {
-  domain = local.domain_name
+  domain = var.primary_domain
 }
 
 # Mailer Route53 MX record
 resource "aws_route53_record" "mailer_ses_domain_mail_from_mx" {
-  zone_id = aws_route53_zone.zone.id
+  zone_id = aws_route53_zone.primary.id
   name    = aws_ses_domain_mail_from.mailer.mail_from_domain
   type    = "MX"
   ttl     = "600"
@@ -23,7 +23,7 @@ resource "aws_route53_record" "mailer_ses_domain_mail_from_mx" {
 
 # Mailer Route53 TXT record for SPF
 resource "aws_route53_record" "mailer_ses_domain_mail_from_txt" {
-  zone_id = aws_route53_zone.zone.id
+  zone_id = aws_route53_zone.primary.id
   name    = aws_ses_domain_mail_from.mailer.mail_from_domain
   type    = "TXT"
   ttl     = "600"

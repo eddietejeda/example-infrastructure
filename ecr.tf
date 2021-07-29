@@ -1,5 +1,5 @@
 resource "aws_ecr_repository" "repository" {
-  name = "${local.name}"
+  name = "${var.name}"
   tags = local.tags
 }
 

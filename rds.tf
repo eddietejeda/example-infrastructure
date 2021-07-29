@@ -4,20 +4,20 @@
 
 module "db" {
   source = "terraform-aws-modules/rds/aws"
-  name   = "${local.name}_db"
+  name   = "${var.name}_db"
 
   engine                = "postgres"
   engine_version        = "11.10"
   family                = "postgres11"   # DB parameter group
   major_engine_version  = "11"           # DB option group
   instance_class        = "db.t3.micro"
-  identifier            = "${local.name}-rds" 
+  identifier            = "${var.name}-rds" 
 
   allocated_storage     = 20
   max_allocated_storage = 100
   storage_encrypted     = false
 
-  username                = "${local.name}_user"
+  username                = "${var.name}_user"
   create_random_password  = true
   random_password_length  = 12
   port                    = 5432

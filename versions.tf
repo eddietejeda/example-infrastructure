@@ -11,16 +11,16 @@ terraform {
   }
 
   backend "remote" {
-    organization = "LinkBird"
+    organization  = "LinkBird"
 
     workspaces {
-      name = "production"
+      name        = "production"
     }
   }
 }
 
 provider "aws" {
-  region       = "${local.region}"
+  region       = "${var.region}"
 }
 
 provider "github" {

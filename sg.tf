@@ -6,10 +6,10 @@
 # Load Balancer 
 #-------------------------------------------
 resource "aws_security_group" "load_balancer" {
-  name        = "${local.name}-public-load-balancer-security-group"
+  name        = "${var.name}-public-load-balancer-security-group"
   description = "Controls access to the load balancer"
   vpc_id      = module.vpc.vpc_id
-  tags        = merge({ Name = "${local.name}-load-balancer" }, local.tags )
+  tags        = merge({ Name = "${var.name}-load-balancer" }, local.tags )
 }
 resource "aws_security_group_rule" "load_balancer_allow_all_outbound" {
   type              = "egress"
@@ -41,13 +41,13 @@ resource "aws_security_group_rule" "load_balancer_allow_https_inbound" {
 # Web Security Group
 #-------------------------------------------
 resource "aws_security_group" "web" {
-  name        = "${local.name}-public-web-worker-security-group"
+  name        = "${var.name}-public-web-worker-security-group"
   description = "Allow HTTP inbound traffic"
   vpc_id      = "${module.vpc.vpc_id}"
   tags = merge(
     local.tags,
     {
-      Name = "${local.name}-web-workers"
+      Name = "${var.name}-web-workers"
     }
   )
 }
@@ -80,13 +80,13 @@ resource "aws_security_group_rule" "web_allow_https_inbound" {
 # Workers Security Group
 #-------------------------------------------
 resource "aws_security_group" "workers" {
-  name        = "${local.name}-private-worker-security-group"
+  name        = "${var.name}-private-worker-security-group"
   description = "Allow inbound access from the ALB only"
   vpc_id      = module.vpc.vpc_id
   tags = merge(
     local.tags,
     {
-      Name = "${local.name}-private-workers"
+      Name = "${var.name}-private-workers"
     }
   )
 }
@@ -112,13 +112,13 @@ resource "aws_security_group_rule" "workers_allow_worker_inbound" {
 # Managed Services Security Group
 #-------------------------------------------
 resource "aws_security_group" "managed_services" {
-  name        = "${local.name}-private-services-security-group"
+  name        = "${var.name}-private-services-security-group"
   description = "Private managed services"
   vpc_id      = "${module.vpc.vpc_id}"
   tags        = merge(
     local.tags,
     {
-      Name = "${local.name}-private-services"
+      Name = "${var.name}-private-services"
     }
   )
 }

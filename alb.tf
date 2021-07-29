@@ -3,7 +3,7 @@
 ################################################################################
 
 resource "aws_lb_target_group" "target_group" {
-  name        = "${local.name}-target-group"
+  name        = "${var.name}-target-group"
   port        = 80
   protocol    = "HTTP"
   vpc_id      = module.vpc.vpc_id
@@ -25,7 +25,7 @@ resource "aws_lb_target_group" "target_group" {
 }
 
 resource "aws_lb" "load_balancer" {
-  name            = "${local.name}-load-balancer"
+  name            = "${var.name}-load-balancer"
   subnets         = module.vpc.public_subnets
   security_groups = [ 
     aws_security_group.load_balancer.id, 
@@ -38,7 +38,7 @@ resource "aws_lb" "load_balancer" {
 # Forward all traffic from the ALB to the target group
 resource "aws_lb_listener" "https_lb_listener" {
   load_balancer_arn = aws_lb.load_balancer.id
-  certificate_arn   = aws_acm_certificate.cert.arn
+  certificate_arn   = aws_acm_certificate.primary_cert.arn
   protocol          = "HTTPS"
   ssl_policy        = "ELBSecurityPolicy-2016-08"
   port              = 443
@@ -56,6 +56,17 @@ resource "aws_lb_listener" "http_lb_listener" {
   load_balancer_arn = aws_lb.load_balancer.id
   port              = 80
   protocol          = "HTTP"
+
+  ## Useful for testing
+  # default_action {
+  #   type = "fixed-response"
+
+  #   fixed_response {
+  #     content_type = "text/plain"
+  #     message_body = "Fixed response content"
+  #     status_code  = "200"
+  #   }
+  # }
 
   default_action {
     type = "redirect"
