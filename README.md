@@ -1,3 +1,21 @@
+## Infrastructure
+
+This is the infrastructure to deploy my toy app, [LinkBird](https://github.com/eddietejeda/linkbird-application).
+
+
+## Implements
+
+- VPC with multiple subnets across two AZs
+- Supports services like Elasticsearch and Redis
+- CI/CD Pipeline
+- Builds Docker images
+- Manages domain and certificates and load balancers 
+- Deploys to Elastic Container
+- etc.
+
+I plan to continue to add functionality when needed.
+
+
 ## Deployment Workflow
 
 This environment is configured to run on [Terraform Cloud](https://www.terraform.io/cloud).
@@ -21,7 +39,6 @@ https://app.terraform.io/app/LinkBird/workspaces/production
     }
   }
 ```
-
 
 
 ## Naming convention
