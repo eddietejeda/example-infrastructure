@@ -1,9 +1,4 @@
 locals {
-  # name              = var.name
-  # region            = var.region
-  # environment       = var.environment
-  # primary_domain    = var.primary_domain
-  # secondary_domain  = var.secondary_domain
   primary_url       = "www.${var.primary_domain}"
   secondary_url     = "www.${var.secondary_domain}"
   database_url      = "postgres://${module.db.db_instance_username}:${module.db.db_instance_password}@${module.db.db_instance_endpoint}/${module.db.db_instance_username}"
