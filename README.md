@@ -13,7 +13,7 @@ This is the infrastructure to deploy my toy app, [LinkBird](https://github.com/e
 - Deploys to Elastic Container
 - etc.
 
-I plan to continue to add functionality when needed.
+I will add functionality when needed.
 
 
 ## Deployment Workflow
