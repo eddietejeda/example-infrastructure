@@ -24,8 +24,8 @@ resource "aws_ecs_task_definition" "task_definition" {
   requires_compatibilities  = ["FARGATE"]
   cpu                       = 1024
   memory                    = 2048
-  task_role_arn             = aws_iam_role.iam_role.arn
-  execution_role_arn        = aws_iam_role.iam_role.arn
+  task_role_arn             = aws_iam_role.ecs_role.arn
+  execution_role_arn        = aws_iam_role.ecs_role.arn
 
   # We image_digest to force ECS to redeploy on every push if there is a change to the docker image
   container_definitions = jsonencode([
@@ -137,4 +137,52 @@ resource "aws_ecs_service" "ecs_service" {
     capacity_provider = "FARGATE_SPOT"
     weight            = "1"
   }
+}
+
+
+################################################################################
+# IAM
+################################################################################
+
+resource "aws_iam_role" "ecs_role" {
+  name                = "${var.name}-ecs-role"
+  path                = "/"
+  tags                = local.tags
+  assume_role_policy  = data.aws_iam_policy_document.instance_assume_role_policy.json
+}
+
+resource "aws_iam_instance_profile" "ecs_instance_profile" {
+  name       = "${var.name}-ecs-instance"
+  role       = aws_iam_role.ecs_role.name
+}
+
+data "aws_iam_policy_document" "instance_assume_role_policy" {
+  statement {
+    actions = ["sts:AssumeRole"]
+
+    principals {
+      type        = "Service"
+      identifiers = ["ec2.amazonaws.com", "ecs.amazonaws.com", "ecs-tasks.amazonaws.com"]
+    }
+  }
+}
+
+resource "aws_iam_role_policy_attachment" "ecs_ec2_role" {
+  role       = aws_iam_role.ecs_role.id
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEC2ContainerServiceforEC2Role"
+}
+
+resource "aws_iam_role_policy_attachment" "ecs_task_execution_role" {
+  role       = aws_iam_role.ecs_role.id
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+}
+
+resource "aws_iam_role_policy_attachment" "ecs_task_role" {
+  role       = aws_iam_role.ecs_role.id
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEC2ContainerServiceRole"
+}
+
+resource "aws_iam_role_policy_attachment" "ecs_ec2_cloudwatch_role" {
+  role       = aws_iam_role.ecs_role.id
+  policy_arn = "arn:aws:iam::aws:policy/CloudWatchLogsFullAccess"
 }

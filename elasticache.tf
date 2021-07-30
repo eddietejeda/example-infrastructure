@@ -21,8 +21,28 @@ resource "aws_elasticache_cluster" "redis" {
   port                 = 6379
 }
 
-# TODO: Need to lock down permissions
-resource "aws_iam_role_policy_attachment" "ecs_elasticache_role" {
-  role       = aws_iam_role.iam_role.id
+
+
+# IAM 
+resource "aws_iam_role" "elasticache_role" {
+  name    = "${var.name}-elasticache-role"
+  path    = "/"
+  tags    = local.tags
+  assume_role_policy = data.aws_iam_policy_document.elasticsearch_instance_assume_role_policy.json
+}
+
+resource "aws_iam_role_policy_attachment" "elasticache_full_access_policy" {
+  role       = aws_iam_role.elasticache_role.id
   policy_arn = "arn:aws:iam::aws:policy/AmazonElastiCacheFullAccess"
+}
+
+data "aws_iam_policy_document" "elasticsearch_instance_assume_role_policy" {
+  statement {
+    actions = ["sts:AssumeRole"]
+
+    principals {
+      type        = "Service"
+      identifiers = ["es.amazonaws.com"]
+    }
+  }
 }

@@ -32,7 +32,7 @@ resource "aws_s3_bucket_policy" "bucket_policy" {
           "${aws_s3_bucket.bucket.arn}/*"
         ],
         "Principal": {
-          "AWS": "${aws_iam_role.iam_role.arn}"
+          "AWS": "${aws_iam_role.s3_role.arn}"
         }
       }
    ]
@@ -47,6 +47,7 @@ resource "aws_iam_role" "s3_role" {
 
   assume_role_policy = data.aws_iam_policy_document.s3_instance_assume_role_policy.json
 }
+
 resource "aws_iam_instance_profile" "s3_instance" {
   name       = "${var.name}-s3-instance"
   role       = aws_iam_role.s3_role.name
