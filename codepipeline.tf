@@ -86,7 +86,19 @@ resource "aws_codepipeline_webhook" "webhook" {
 }
 
 
-# Codepipeline IAM data
+# IAM
+resource "aws_iam_role" "codepipeline_role" {
+  name    = "${var.name}-codepipeline"  
+  assume_role_policy = "${data.aws_iam_policy_document.codepipeline_assume_role_policy.json}"
+  tags = local.tags
+}
+
+resource "aws_iam_role_policy" "codepipeline_role_policy" {
+  name    = "${var.name}-codepipeline"  
+  role    = "${aws_iam_role.codepipeline_role.name}"
+  policy  = "${data.aws_iam_policy_document.codepipeline_policy.json}"
+}
+
 data "aws_iam_policy_document" "codepipeline_assume_role_policy" {
   statement {
     actions = ["sts:AssumeRole"]
@@ -152,19 +164,4 @@ data "aws_iam_policy_document" "codepipeline_policy" {
       "*"
     ]
   }
-}
-
-
-
-# IAM resources
-resource "aws_iam_role" "codepipeline_role" {
-  name    = "${var.name}-codepipeline"  
-  assume_role_policy = "${data.aws_iam_policy_document.codepipeline_assume_role_policy.json}"
-  tags = local.tags
-}
-
-resource "aws_iam_role_policy" "codepipeline_role_policy" {
-  name    = "${var.name}-codepipeline"  
-  role    = "${aws_iam_role.codepipeline_role.name}"
-  policy  = "${data.aws_iam_policy_document.codepipeline_policy.json}"
 }
