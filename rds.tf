@@ -32,7 +32,7 @@ module "db" {
 
   backup_retention_period = 0
   skip_final_snapshot     = true
-  deletion_protection     = false
+  deletion_protection     = true
   apply_immediately       = true
 
   performance_insights_retention_period = 7
