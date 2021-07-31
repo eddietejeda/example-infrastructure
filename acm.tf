@@ -46,8 +46,12 @@ resource "aws_acm_certificate_validation" "secondary_certificate_validation" {
 }
 
 resource "aws_lb_listener_certificate" "lb_listener_certificate" {
-  depends_on = [aws_acm_certificate_validation.primary_certificate_validation]
   listener_arn    = aws_lb_listener.https_lb_listener.arn
   certificate_arn = aws_acm_certificate.primary_cert.arn
+  
+  depends_on = [
+    aws_acm_certificate_validation.primary_certificate_validation
+  ]
+
 }
 
