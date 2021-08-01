@@ -7,7 +7,7 @@ output "redis_url" {
 }
 
 output "load_balancer_url" {
-  value = "${aws_lb.load_balancer.dns_name}"
+  value = "${aws_alb.load_balancer.dns_name}"
 }
 
 output "public_url" {
