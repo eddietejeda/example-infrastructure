@@ -1,6 +1,6 @@
 ## Infrastructure
 
-This is the infrastructure to deploy my toy app, [LinkBird](https://github.com/eddietejeda/linkbird-application).
+This is the infrastructure written in Terraform to deploy my toy app, LinkBird ([Code](https://github.com/eddietejeda/linkbird-application) | [Website](https://www.linkbird.app/)).
 
 
 ## Implements
@@ -13,7 +13,7 @@ This is the infrastructure to deploy my toy app, [LinkBird](https://github.com/e
 - Deploys to Elastic Container
 - etc.
 
-I will add functionality when needed.
+I will add functionality as needed.
 
 
 ## Deployment Workflow
