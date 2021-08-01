@@ -44,12 +44,7 @@ resource "aws_security_group" "web" {
   name        = "${var.name}-public-web-worker-security-group"
   description = "Allow HTTP inbound traffic"
   vpc_id      = "${module.vpc.vpc_id}"
-  tags = merge(
-    local.tags,
-    {
-      Name = "${var.name}-web-workers"
-    }
-  )
+  tags        = merge({ Name = "${var.name}-web-workers" }, local.tags )
 }
 resource "aws_security_group_rule" "web_allow_all_outbound" {
   type              = "egress"
@@ -83,12 +78,7 @@ resource "aws_security_group" "workers" {
   name        = "${var.name}-private-worker-security-group"
   description = "Allow inbound access from the ALB only"
   vpc_id      = module.vpc.vpc_id
-  tags = merge(
-    local.tags,
-    {
-      Name = "${var.name}-private-workers"
-    }
-  )
+  tags        = merge({ Name = "${var.name}-private-workers" }, local.tags )
 }
 resource "aws_security_group_rule" "workers_allow_all_outbound" {
   type              = "egress"
@@ -115,12 +105,7 @@ resource "aws_security_group" "managed_services" {
   name        = "${var.name}-private-services-security-group"
   description = "Private managed services"
   vpc_id      = "${module.vpc.vpc_id}"
-  tags        = merge(
-    local.tags,
-    {
-      Name = "${var.name}-private-services"
-    }
-  )
+  tags        = merge({ Name = "${var.name}-private-services" }, local.tags )
 }
 resource "aws_security_group_rule" "managed_services_allow_all_outbound" {
   description              = "Allow all outbound traffic"
