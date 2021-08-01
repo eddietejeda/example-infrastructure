@@ -1,3 +1,7 @@
+################################################################################
+# Amazon Elastic Container Registry
+################################################################################
+
 resource "aws_ecr_repository" "repository" {
   name = "${var.name}"
   tags = local.tags
