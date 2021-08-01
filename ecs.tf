@@ -1,5 +1,5 @@
 ################################################################################
-# ECS
+# Elastic Container Service
 ################################################################################
 
 resource "aws_ecs_cluster" "cluster" {
@@ -117,7 +117,7 @@ resource "aws_ecs_service" "ecs_service" {
   force_new_deployment                = true
 
   load_balancer {
-    target_group_arn = aws_lb_target_group.target_group.arn
+    target_group_arn = aws_alb_target_group.target_group.arn
     container_name = "app"
     container_port = 9292
   }
@@ -140,10 +140,8 @@ resource "aws_ecs_service" "ecs_service" {
 }
 
 
-################################################################################
-# IAM
-################################################################################
 
+# IAM
 resource "aws_iam_role" "ecs_role" {
   name                = "${var.name}-ecs-role"
   path                = "/"
