@@ -32,7 +32,10 @@ resource "aws_s3_bucket_policy" "bucket_policy" {
           "${aws_s3_bucket.bucket.arn}/*"
         ],
         "Principal": {
-          "AWS": "${aws_iam_role.s3_role.arn}"
+          "AWS": [ 
+            "${aws_iam_role.s3_role.arn}",
+            "${aws_iam_role.ecs_role.arn}"
+          ]
         }
       }
    ]
