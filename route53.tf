@@ -12,7 +12,8 @@ resource "aws_route53_record" "primary" {
   name    = "${local.primary_url}"
   type    = "CNAME"
   ttl     = "300"
-  records = [aws_lb.load_balancer.dns_name]
+  records = [aws_alb.load_balancer.dns_name]
+
 }
 
 resource "aws_route53_zone" "secondary" {
@@ -25,7 +26,8 @@ resource "aws_route53_record" "secondary" {
   name    = "${local.secondary_url}"
   type    = "CNAME"
   ttl     = "300"
-  records = [aws_lb.load_balancer.dns_name]
+  records = [aws_alb.load_balancer.dns_name]
+
 }
 
 resource "aws_route53_record" "primary_cert_validation" {
